@@ -48,6 +48,7 @@ def q1_sample_data_2():
 
 
 def visualize_q1_data(dset_type):
+    plt.style.use("default")
     if dset_type == 1:
         train_data, test_data = q1_sample_data_1()
         d = 20
@@ -63,7 +64,10 @@ def visualize_q1_data(dset_type):
     ax2.set_title("Test Data")
     ax2.hist(test_data, bins=np.arange(d) - 0.5, density=True)
     print(f"Dataset {dset_type}")
+    print("=")
     plt.show()
+    print("=")
+    return train_data, test_data
 
 
 def q1_save_results(dset_type, part, fn):

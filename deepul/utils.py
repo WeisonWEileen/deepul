@@ -63,6 +63,8 @@ def save_scatter_2d(data: np.ndarray, title: str, fname: str) -> None:
 def save_distribution_1d(
     data: np.ndarray, distribution: np.ndarray, title: str, fname: str
 ):
+    print(distribution.shape)
+    print(type(distribution))
     d = len(distribution)
 
     plt.figure()
