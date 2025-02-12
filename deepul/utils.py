@@ -110,6 +110,24 @@ def show_samples(
     else:
         plt.show()
 
+def show_samples_gray(
+    samples: np.ndarray, fname: str = None, nrow: int = 10, title: str = "Samples"
+):
+    import torch
+    from torchvision.utils import make_grid
+
+    samples = torch.FloatTensor(samples).permute(0, 3, 1, 2)
+    grid_img = make_grid(samples, nrow=nrow)
+    plt.figure()
+    plt.title(title)
+    plt.imshow(grid_img.permute(1, 2, 0).cpu().numpy().astype(np.uint8), cmap='gray')
+    plt.axis("off")
+
+    if fname is not None:
+        savefig(fname)
+    else:
+        plt.show()
+
 
 def load_pickled_data(fname: str, include_labels: bool = False):
     with open(fname, "rb") as f:
@@ -154,7 +172,7 @@ def load_colored_mnist_text(file_path):
 
 
 def get_data_dir(hw_number: int):
-    return join('deepul', 'homeworks', f'hw{hw_number}', 'data')
+    return join('homeworks', f'hw{hw_number}', 'data')
 
 
 def quantize(images: np.ndarray, n_bits: int = 8):

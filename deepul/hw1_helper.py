@@ -18,6 +18,7 @@ from .utils import (
     save_training_plot,
     savefig,
     show_samples,
+    show_samples_gray
 )
 
 
@@ -102,8 +103,10 @@ def q1_save_results(dset_type, part, fn):
 
 
 # Question 2
-def q2a_save_results(dset_type, q3_a):
+def q2a_save_results(dset_type, batch_size, q3_a):
+    torch.cuda.empty_cache()
     data_dir = get_data_dir(1)
+    data_dir = '/home/PanWei/deepul/homeworks/hw1/data'
     if dset_type == 1:
         train_data, test_data = load_pickled_data(join(data_dir, "shapes.pkl"))
         img_shape = (20, 20)
@@ -114,8 +117,9 @@ def q2a_save_results(dset_type, q3_a):
         raise Exception()
 
     train_losses, test_losses, samples = q3_a(
-        train_data, test_data, img_shape, dset_type
+        train_data, test_data, img_shape, dset_type, batch_size
     )
+    torch.cuda.empty_cache()
     samples = samples.astype("float32") * 255
 
     print(f"Final Test Loss: {test_losses[-1]:.4f}")
@@ -126,7 +130,6 @@ def q2a_save_results(dset_type, q3_a):
         f"results/q2_a_dset{dset_type}_train_plot.png",
     )
     show_samples(samples, f"results/q2_a_dset{dset_type}_samples.png")
-
 
 def q2b_save_results(dset_type, part, fn):
     data_dir = get_data_dir(1)
@@ -153,7 +156,8 @@ def q2b_save_results(dset_type, part, fn):
 
 
 def visualize_q2a_data(dset_type):
-    data_dir = get_data_dir(1)
+    # data_dir = get_data_dir(1)
+    data_dir = '/home/PanWei/deepul/homeworks/hw1/data'
     if dset_type == 1:
         train_data, test_data = load_pickled_data(join(data_dir, "shapes.pkl"))
         name = "Shape"
@@ -162,6 +166,7 @@ def visualize_q2a_data(dset_type):
         name = "MNIST"
     else:
         raise Exception("Invalid dset type:", dset_type)
+    print("dimension of training data", train_data.shape, "max", np.max(train_data), "min", np.min(train_data))
 
     idxs = np.random.choice(len(train_data), replace=False, size=(100,))
     images = train_data[idxs].astype("float32") / 1 * 255
@@ -170,6 +175,7 @@ def visualize_q2a_data(dset_type):
 
 def visualize_q2b_data(dset_type):
     data_dir = get_data_dir(1)
+    data_dir = '/home/PanWei/deepul/homeworks/hw1/data'
     if dset_type == 1:
         train_data, test_data = load_pickled_data(join(data_dir, "shapes_colored.pkl"))
         name = "Colored Shape"
