@@ -133,6 +133,7 @@ def q2a_save_results(dset_type, batch_size, q3_a):
 
 def q2b_save_results(dset_type, part, fn):
     data_dir = get_data_dir(1)
+    data_dir = '/home/PanWei/deepul/homeworks/hw1/data'
     if dset_type == 1:
         train_data, test_data = load_pickled_data(join(data_dir, "shapes_colored.pkl"))
         img_shape = (20, 20, 3)
@@ -187,6 +188,7 @@ def visualize_q2b_data(dset_type):
 
     idxs = np.random.choice(len(train_data), replace=False, size=(100,))
     images = train_data[idxs].astype("float32") / 3 * 255
+    print("dimension of training data", train_data.shape, "max", np.max(train_data), "min", np.min(train_data))
     show_samples(images, title=f"{name} Samples")
 
 
