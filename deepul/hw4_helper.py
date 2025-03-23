@@ -15,7 +15,6 @@ from .utils import (
 )
 
 
-
 ######################
 ##### Question 1 #####
 ######################
@@ -39,6 +38,7 @@ def save_multi_scatter_2d(data: np.ndarray) -> None:
     for i in range(3):
         for j in range(3):
             axs[i, j].scatter(data[i * 3 + j, :, 0], data[i * 3 + j, :, 1])
+            axs[i, j].set_title(f"data #{i * 3 + j}")
     plt.title("Q1 Samples")
     savefig("results/q1_samples.png")
 
@@ -58,7 +58,7 @@ def q1_save_results(fn):
     )
 
     save_multi_scatter_2d(samples)
-    
+
 
 ######################
 ##### Question 2 #####
@@ -123,7 +123,7 @@ def visualize_q3_data():
     show_samples(imgs, title=f'CIFAR-10 Samples')
     print('Labels:', labels)
 
-    
+
 def q3a_save_results(fn):
     train_data, _ = load_q3_data()
     train_images = train_data.data / 255.0
